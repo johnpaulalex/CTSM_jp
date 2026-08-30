@@ -17,7 +17,9 @@ dependencies:
   - black=25.1.0
   - cartopy=0.24.0
   - matplotlib=3.10.1
+  - pytorch-cpu
   - pip=25.0.1
+
 
   # For VS code
   # fortls used in FORTRAN-IntelliSense extension, add path to fortls below to the VS setting fort-ls.executablePath

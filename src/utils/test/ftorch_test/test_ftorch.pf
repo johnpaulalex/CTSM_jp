@@ -1,0 +1,61 @@
+! Unit test for FTorch model loading, tensor creation, and forward pass inference in CTSM.
+module test_ftorch
+
+  use funit
+  use shr_kind_mod, only : r8 => shr_kind_r8
+#ifdef USE_FTORCH
+  use ftorch, only : torch_model, torch_tensor, torch_model_load, torch_tensor_from_array, torch_model_forward, torch_kCPU, torch_delete
+#endif
+
+  implicit none
+
+  @TestCase
+  type, extends(TestCase) :: TestFTorch
+   contains
+     procedure :: setUp
+     procedure :: tearDown
+  end type TestFTorch
+
+contains
+
+  subroutine setUp(this)
+    class(TestFTorch), intent(inout) :: this
+  end subroutine setUp
+
+  subroutine tearDown(this)
+    class(TestFTorch), intent(inout) :: this
+  end subroutine tearDown
+
+  @Test
+  subroutine test_ftorch_dummy_inference(this)
+    ! Test loading FTorch model, running forward inference, and deleting model handles.
+    class(TestFTorch), intent(inout) :: this
+#ifdef USE_FTORCH
+    type(torch_model) :: model
+    type(torch_tensor) :: in_tensor(1), out_tensor(1)
+    real(r8), target :: in_data(4)
+    real(r8), target :: out_data(4)
+    integer :: in_layout(1), out_layout(1)
+
+    in_data = [1.0_r8, 2.0_r8, 3.0_r8, 4.0_r8]
+    out_data = [0.0_r8, 0.0_r8, 0.0_r8, 0.0_r8]
+    in_layout = [4]
+    out_layout = [4]
+
+    call torch_model_load(model, "simple_identity.pt", torch_kCPU)
+    call torch_tensor_from_array(in_tensor(1), in_data, in_layout, torch_kCPU)
+    call torch_tensor_from_array(out_tensor(1), out_data, out_layout, torch_kCPU)
+    call torch_model_forward(model, in_tensor, out_tensor)
+
+    @assertEqual(in_data, out_data)
+
+    call torch_delete(in_tensor(1))
+    call torch_delete(out_tensor(1))
+    call torch_delete(model)
+#else
+    ! If compiled without FTorch, ensure test passes gracefully
+    @assertTrue(.true.)
+#endif
+  end subroutine test_ftorch_dummy_inference
+
+end module test_ftorch
