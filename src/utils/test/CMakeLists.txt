@@ -5,3 +5,5 @@ add_subdirectory(numerics_test)
 add_subdirectory(quadratic_test)
 add_subdirectory(matrix_test)
 add_subdirectory(sparse_matrix_test)
+add_subdirectory(ftorch_test)
+
