@@ -4643,7 +4643,7 @@
     </options>
   </test>
 
-  <test name="SMS_D_Ld1" grid="f10_f10_mg37" compset="I2000Clm60Sp" testmods="clm/default--clm/ftorch">
+  <test name="SMS_D_Ld1" grid="f10_f10_mg37" compset="I2000Clm60Sp" testmods="clm/default--clm/nofireemis--clm/ftorch">
     <machines>
       <machine name="derecho" compiler="intel" category="aux_clm"/>
       <machine name="derecho" compiler="gnu" category="aux_clm"/>
@@ -4654,7 +4654,7 @@
     </options>
   </test>
 
-  <test name="SMS_D_Ld1_Mmpi-serial" grid="1x1_brazil" compset="I2000Clm60SpRsGs" testmods="clm/default--clm/ftorch">
+  <test name="SMS_D_Ld1_Mmpi-serial" grid="1x1_brazil" compset="I2000Clm60SpRsGs" testmods="clm/default--clm/nofireemis--clm/ftorch">
     <machines>
       <machine name="derecho" compiler="intel" category="aux_clm"/>
       <machine name="derecho" compiler="gnu" category="aux_clm"/>
@@ -4664,6 +4664,7 @@
       <option name="comment">Test building and running standalone single-point CTSM case (LEAP/M2LInES setup) with FTorch enabled</option>
     </options>
   </test>
+
 
 
 
