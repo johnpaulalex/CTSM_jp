@@ -489,6 +489,7 @@ contains
     !
     ! !LOCAL VARIABLES:
     integer :: begp, endp
+    real(r8), pointer :: ptr_2d(:,:) ! local alias to avoid polymorphic array slice bounds-check crash
     !---------------------------------------------------------------------
 
     begp = bounds%begp; endp= bounds%endp
@@ -637,12 +638,14 @@ contains
           avgflag='A', long_name='shaded leaf stomatal conductance', &
           ptr_patch=this%gs_mol_sha_patch, set_lake=spval, set_urb=spval)
     else
-       ptr_1d => this%gs_mol_sun_patch(begp:endp,1)
+       ptr_2d => this%gs_mol_sun_patch
+       ptr_1d => ptr_2d(begp:endp,1)
        call hist_addfld1d (fname='GSSUN', units='umol H20/m2/s', &
           avgflag='A', long_name='sunlit leaf stomatal conductance', &
           ptr_patch=ptr_1d)
 
-       ptr_1d => this%gs_mol_sha_patch(begp:endp,1)
+       ptr_2d => this%gs_mol_sha_patch
+       ptr_1d => ptr_2d(begp:endp,1)
        call hist_addfld1d (fname='GSSHA', units='umol H20/m2/s', &
           avgflag='A', long_name='shaded leaf stomatal conductance', &
           ptr_patch=ptr_1d)
@@ -659,12 +662,14 @@ contains
           avgflag='A', long_name='shaded leaf stomatal conductance averaged over 1 hour before to 1 hour after local noon', &
           ptr_patch=this%gs_mol_sha_ln_patch, set_lake=spval, set_urb=spval)
     else
-       ptr_1d => this%gs_mol_sun_ln_patch(begp:endp,1)
+       ptr_2d => this%gs_mol_sun_ln_patch
+       ptr_1d => ptr_2d(begp:endp,1)
        call hist_addfld1d (fname='GSSUNLN', units='umol H20/m2/s', &
           avgflag='A', long_name='sunlit leaf stomatal conductance at local noon', &
           ptr_patch=ptr_1d)
 
-       ptr_1d => this%gs_mol_sha_ln_patch(begp:endp,1)
+       ptr_2d => this%gs_mol_sha_ln_patch
+       ptr_1d => ptr_2d(begp:endp,1)
        call hist_addfld1d (fname='GSSHALN', units='umol H20/m2/s', &
           avgflag='A', long_name='shaded leaf stomatal conductance at local noon', &
           ptr_patch=ptr_1d)
@@ -684,15 +689,18 @@ contains
             avgflag='A', long_name='Proportion of nitrogen allocated for light capture', &
             ptr_patch=this%pnlc_z_patch,default='inactive')
        else
-         ptr_1d => this%vcmx25_z_patch(:,1)
+         ptr_2d => this%vcmx25_z_patch
+         ptr_1d => ptr_2d(:,1)
          call hist_addfld1d (fname='Vcmx25Z', units='umol/m2/s',&
             avgflag='A', long_name='canopy profile of vcmax25 predicted by LUNA model', &
             ptr_patch=ptr_1d)
-         ptr_1d => this%jmx25_z_patch(:,1)
+         ptr_2d => this%jmx25_z_patch
+         ptr_1d => ptr_2d(:,1)
          call hist_addfld1d (fname='Jmx25Z', units='umol electrons/m2/s',&
             avgflag='A', long_name='maximum rate of electron transport at 25 Celcius for canopy layers', &
             ptr_patch=ptr_1d)
-         ptr_1d => this%pnlc_z_patch(:,1)
+         ptr_2d => this%pnlc_z_patch
+         ptr_1d => ptr_2d(:,1)
          call hist_addfld1d (fname='PNLCZ', units='unitless', &
             avgflag='A', long_name='Proportion of nitrogen allocated for light capture', &
             ptr_patch=ptr_1d,default='inactive')

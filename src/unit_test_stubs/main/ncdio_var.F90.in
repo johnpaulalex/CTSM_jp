@@ -121,16 +121,25 @@ contains
     ! have the shape of true, underlying data (i.e., multi-dimensional if applicable) but
     ! it should NOT have a time dimension because this subroutine returns the data for a
     ! single time index
-    class(ncdio_var_type), intent(inout) :: this
+    class(ncdio_var_type), intent(inout), target :: this
     integer, intent(in) :: nt  ! time index of interest
     real(r8), intent(out) :: data{DIMSTR}
+
+    integer :: shape_val({DIMS})
+    integer :: d
+    real(r8), pointer :: data_ptr(:,:)
 
     character(len=*), parameter :: subname = 'get_data_{DIMS}d'
 
     call shr_assert_all((shape(data) == this%data_shape), subname//' incorrect shape for data')
     call shr_assert(1 <= nt .and. nt <= this%ntimes, subname//' nt out of bounds')
 
-    data = reshape(this%data(:,nt), this%data_shape(1:{DIMS}))
+    ! Use scalar indexing into this%data_shape to avoid gfortran bounds-check crash on class component slice
+    do d = 1, {DIMS}
+       shape_val(d) = this%data_shape(d)
+    end do
+    data_ptr => this%data
+    data = reshape(data_ptr(:,nt), shape_val)
 
     this%read_times(nt) = .true.
 

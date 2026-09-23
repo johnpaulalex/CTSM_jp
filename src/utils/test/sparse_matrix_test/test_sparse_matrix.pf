@@ -272,6 +272,7 @@ contains
     real(r8) :: Mexpect(ndims)
     type(arb_diagplus1_sparse_matrix_setup) :: MatrixSetup
     integer :: i
+    real(r8), pointer :: V_id(:,:)
 
     ! Set up a symetrical banded matrix
     call MatrixSetup%createArbDiagPlus1Matrix( )
@@ -288,8 +289,9 @@ contains
     Mexpect          = 2.0_r8
     Mexpect(ndims)   = 3.0_r8    ! SHOULD THIS BE THE FIRST OR LAST!
     
+    V_id => this%V_identity%V
     do i = begu, endu
-       @assertEqual( Mexpect, this%V_identity%V(i,:ndims) )
+       @assertEqual( Mexpect, V_id(i,:ndims) )
     end do
     call SymBand%ReleaseSM( )
   end subroutine SM_symetrical_matrixPlus1_times_one
@@ -302,6 +304,7 @@ contains
     real(r8) :: Mexpect(ndims)
     type(arb_2band_sparse_matrix_setup) :: MatrixSetup
     integer :: i
+    real(r8), pointer :: V_id(:,:)
 
     ! Set up a symetrical banded matrix
     call MatrixSetup%createArb2BandMatrix( )
@@ -318,8 +321,9 @@ contains
     Mexpect          = 3.0_r8
     Mexpect(1)       = 2.0_r8    ! SHOULD THIS BE THE FIRST OR LAST?
     
+    V_id => this%V_identity%V
     do i = begu, endu
-       @assertEqual( Mexpect, this%V_identity%V(i,:ndims) )
+       @assertEqual( Mexpect, V_id(i,:ndims) )
     end do
     call SymBand%ReleaseSM( )
 
@@ -333,6 +337,7 @@ contains
     real(r8) :: Mexpect(ndims)
     type(arb_band_sparse_matrix_setup) :: MatrixSetup
     integer :: i
+    real(r8), pointer :: V_id(:,:)
 
     ! Set up a symetrical banded matrix
     call MatrixSetup%createArbBandMatrix( )
@@ -350,8 +355,9 @@ contains
     Mexpect(2)       = 3.0_r8
     Mexpect(1)       = 2.0_r8    ! SHOULD THIS BE THE FIRST OR LAST?
     
+    V_id => this%V_identity%V
     do i = begu, endu
-       @assertEqual( Mexpect, this%V_identity%V(i,:ndims) )
+       @assertEqual( Mexpect, V_id(i,:ndims) )
     end do
     call SymBand%ReleaseSM( )
 
@@ -568,6 +574,7 @@ contains
     integer :: NonZero_ABC
     integer :: i
     logical :: list_ready = .false.
+    real(r8), pointer :: M_id(:,:)
 
 
     ! Lower tridiagonal matrix without the diagonal
@@ -595,8 +602,9 @@ contains
     !@assertEqual(NonZero_ABC, ndims*ndims)
     ! Result should have all elements filled in and equal to one
     one = 1.0_r8
+    M_id => this%SM_identity%M
     do i = begu, endu
-       @assertEqual( one, this%SM_identity%M(i,:) )
+       @assertEqual( one, M_id(i,:) )
     end do
 
   end subroutine SM_lower_plus_upper_plus_diag_equal_filled
