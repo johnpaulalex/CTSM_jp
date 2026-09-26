@@ -691,7 +691,7 @@ contains
          thk          =>    soilstate_inst%thk_col             & ! Output: [real(r8) (:,:) ]  thermal conductivity of each layer  [W/m-K] 
          )
 
-       call InitSnowThermPropDiagnostics(bounds, num_nolakec, filter_nolakec, bw, thk)
+       call InitSnowThermPropDiagnostics(bounds, num_nolakec, filter_nolakec, bw)
 
       ! Thermal conductivity of soil from Farouki (1981)
 
@@ -2991,8 +2991,8 @@ end subroutine SetMatrix_Snow
   end subroutine BuildingHAC
 
   !-----------------------------------------------------------------------
-  subroutine InitSnowThermPropDiagnostics(bounds, num_nolakec, filter_nolakec, bw, thk)
-    ! Initialize bw and thk to spval for inactive snow layers (j <= 0)
+  subroutine InitSnowThermPropDiagnostics(bounds, num_nolakec, filter_nolakec, bw)
+    ! Initialize bw to spval for inactive snow layers (j <= 0)
     ! Note: Lake columns are handled separately by LakeTemperatureMod
     use clm_varpar, only : nlevsno
     use clm_varcon, only : spval
@@ -3000,7 +3000,6 @@ end subroutine SetMatrix_Snow
     integer, intent(in)           :: num_nolakec
     integer, intent(in)           :: filter_nolakec(:)
     real(r8), intent(inout)       :: bw(bounds%begc:,-nlevsno+1:)
-    real(r8), intent(inout)       :: thk(bounds%begc:,-nlevsno+1:)
 
     integer :: fc, c, j
 
@@ -3008,7 +3007,6 @@ end subroutine SetMatrix_Snow
        do fc = 1, num_nolakec
           c = filter_nolakec(fc)
           bw(c,j)  = spval
-          thk(c,j) = spval
        end do
     end do
 
