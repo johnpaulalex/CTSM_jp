@@ -206,7 +206,7 @@ contains
     ! Set diagnostic variables related to the fraction of water and ice in each layer
     !
     ! !USES:
-    use clm_varcon, only : denice, spval
+    use clm_varcon, only : denice
     !
     ! !ARGUMENTS:
     type(bounds_type)        , intent(in)    :: bounds               
@@ -251,13 +251,13 @@ contains
        end do
     end do
 
-    ! Initialize deeper bedrock layers (which do not have active hydrology) to spval 
-    ! to prevent them from carrying stale memory into history output variables.
+    ! Initialize bedrock layers to physically sensible values to avoid stale memory
+    ! exact restart differences, without triggering spval math errors in downstream solvers.
     do j = nlevsoi+1, nlevgrnd
        do fc = 1, num_hydrologyc
           c = filter_hydrologyc(fc)
-          eff_porosity(c,j) = spval
-          icefrac(c,j)      = spval
+          eff_porosity(c,j) = watsat(c,j)
+          icefrac(c,j)      = 0._r8
        end do
     end do
 

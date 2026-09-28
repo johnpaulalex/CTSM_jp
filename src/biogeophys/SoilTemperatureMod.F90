@@ -658,6 +658,12 @@ contains
     SHR_ASSERT_ALL_FL((ubound(tk)        == (/bounds%endc, nlevmaxurbgrnd/)), sourcefile, __LINE__)
     SHR_ASSERT_ALL_FL((ubound(tk_h2osfc) == (/bounds%endc/)),           sourcefile, __LINE__)
 
+    ! Initialize intent(out) arrays to prevent uninitialized memory usage
+    ! tk(c,0) can be accessed when snl(c) == 0 but frac_sno_fluxes > 0.
+    cv(bounds%begc:bounds%endc, :) = 0.0_r8
+    tk(bounds%begc:bounds%endc, :) = 0.0_r8
+    tk_h2osfc(bounds%begc:bounds%endc) = 0.0_r8
+
     associate(                                                 & 
          nbedrock     =>    col%nbedrock                     , & ! Input:  [real(r8) (:,:) ]  depth to bedrock (m)                                 
          snl          =>    col%snl			                 , & ! Input:  [integer  (:)   ]  number of snow layers                    
@@ -2992,7 +2998,7 @@ end subroutine SetMatrix_Snow
 
   !-----------------------------------------------------------------------
   subroutine InitSnowThermPropDiagnostics(bounds, num_nolakec, filter_nolakec, bw, thk)
-    ! Initialize bw and thk to spval for inactive snow layers (j <= 0)
+    ! Initialize bw and thk to spval for inactive snow layers (j < snl(c)+1)
     ! Note: Lake columns are handled separately by LakeTemperatureMod
     use clm_varpar, only : nlevsno
     use clm_varcon, only : spval
@@ -3007,8 +3013,10 @@ end subroutine SetMatrix_Snow
     do j = -nlevsno+1, 0
        do fc = 1, num_nolakec
           c = filter_nolakec(fc)
-          bw(c,j)  = spval
-          thk(c,j) = spval
+          if (j < col%snl(c)+1) then
+             bw(c,j)  = spval
+             thk(c,j) = spval
+          end if
        end do
     end do
 
