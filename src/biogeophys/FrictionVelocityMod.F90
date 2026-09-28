@@ -88,6 +88,7 @@ module FrictionVelocityMod
      procedure, public :: SetActualRoughnessLengths ! Set roughness lengths actually used in flux calculations
      procedure, public :: FrictionVelocity       ! Calculate friction velocity
      procedure, public :: SetValues              ! Set diagnostic arrays to setval (e.g. spval)
+     procedure, public :: DeactivateDiagnosticsVegToBare ! Surgically wipe specific canopy variables
      procedure, public :: MoninObukIni           ! Initialization of the Obukhov length scale
 
      procedure, public  :: InitForTesting        ! version of Init meant for unit testing
@@ -447,6 +448,30 @@ contains
     this%ram1_patch(begp:endp) = setval
     
   end subroutine SetValues
+  !-----------------------------------------------------------------------
+  subroutine DeactivateDiagnosticsVegToBare(this, p, setval)
+    ! Set canopy-exclusive diagnostic arrays to setval for a single patch
+    ! This is used to surgically wipe stale fields when a patch 
+    ! transitions from canopy to bare ground.
+
+    class(frictionvel_type), intent(inout) :: this
+    integer, intent(in)                    :: p
+    real(r8), intent(in)                   :: setval
+
+    this%rah1_patch(p)  = setval
+    this%rah2_patch(p)  = setval
+    this%raw1_patch(p)  = setval
+    this%raw2_patch(p)  = setval
+    this%ustar_patch(p) = setval
+    this%um_patch(p)    = setval
+    this%uaf_patch(p)   = setval
+    this%taf_patch(p)   = setval
+    this%qaf_patch(p)   = setval
+    this%obu_patch(p)   = setval
+    this%vpd_patch(p)   = setval
+    this%rb1_patch(p)   = setval
+    
+  end subroutine DeactivateDiagnosticsVegToBare
 
   !------------------------------------------------------------------------------
   subroutine ReadParams( this, params_ncid )

@@ -18,6 +18,7 @@ module clm_driver
   use clm_time_manager       , only : get_nstep, is_beg_curr_day, is_beg_curr_year
   use clm_time_manager       , only : get_prev_date, is_first_step
   use clm_varpar             , only : nlevsno, nlevgrnd
+  use clm_varcon             , only : spval
   use shr_infnan_mod         , only : nan => shr_infnan_nan, assignment(=)
   use clm_varorb             , only : obliqr
   use spmdMod                , only : masterproc, mpicom
@@ -139,7 +140,7 @@ contains
     !
     ! !LOCAL VARIABLES:
     integer              :: nstep                   ! time step number
-    integer              :: nc, c, p, l, g          ! indices
+    integer              :: nc, c, p, l, g, fp      ! indices
     integer              :: nclumps                 ! number of clumps on this processor
     integer              :: yr                      ! year (0, ...)
     integer              :: mon                     ! month (1, ..., 12)
@@ -522,7 +523,7 @@ contains
     ! snow accumulation exceeds 10 mm.
     ! ============================================================================
 
-    !$OMP PARALLEL DO PRIVATE (nc,l,c, bounds_clump, downreg_patch, leafn_patch, agnpp_patch, bgnpp_patch, annsum_npp_patch, rr_patch, froot_carbon, croot_carbon)
+    !$OMP PARALLEL DO PRIVATE (nc,l,c,p,fp, bounds_clump, downreg_patch, leafn_patch, agnpp_patch, bgnpp_patch, annsum_npp_patch, rr_patch, froot_carbon, croot_carbon)
     do nc = 1,nclumps
        call get_clump_bounds(nc, bounds_clump)
 
@@ -559,6 +560,16 @@ contains
        end if
 
        ! Update filters that depend on variables set in clm_drv_init
+       
+       ! Wipe stale diagnostic arrays for patches transitioning from canopy to bare ground
+       ! Wipe stale diagnostic arrays for all bare patches (idempotent)
+       do p = bounds_clump%begp, bounds_clump%endp
+          if (canopystate_inst%frac_veg_nosno_patch(p) == 0) then
+             call frictionvel_inst%DeactivateDiagnosticsVegToBare(p, spval)
+          end if
+       end do
+          end do
+       end if
 
        call setExposedvegpFilter(bounds_clump, &
             canopystate_inst%frac_veg_nosno_patch(bounds_clump%begp:bounds_clump%endp))
