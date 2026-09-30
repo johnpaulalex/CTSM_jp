@@ -18,6 +18,7 @@ module clm_driver
   use clm_time_manager       , only : get_nstep, is_beg_curr_day, is_beg_curr_year
   use clm_time_manager       , only : get_prev_date, is_first_step
   use clm_varpar             , only : nlevsno, nlevgrnd
+  use clm_varcon             , only : spval
   use shr_infnan_mod         , only : nan => shr_infnan_nan, assignment(=)
   use clm_varorb             , only : obliqr
   use spmdMod                , only : masterproc, mpicom
@@ -763,6 +764,10 @@ contains
                bounds_clump, canopystate_inst%tlai_patch(bounds_clump%begp:bounds_clump%endp))
        end if
           
+       ! Scrub diagnostic arrays to spval to prevent dormant memory from leaking into history
+       call frictionvel_inst%SetValues(bounds_clump, spval)
+       call soilstate_inst%SetValues(bounds_clump, spval)
+
        call CanopyFluxes(bounds_clump,                                                      &
             filter(nc)%num_exposedvegp, filter(nc)%exposedvegp,                             &
             clm_fates,nc,                                                                   &
