@@ -183,6 +183,9 @@ contains
     use FATESFireFactoryMod           , only : scalar_lightning
     use dynFATESLandUseChangeMod      , only : dynFatesLandUseInit
     use HillslopeHydrologyMod         , only : InitHillslope
+#ifdef USE_FTORCH
+    use ftorch, only : torch_model, torch_tensor, torch_model_load, torch_tensor_from_array, torch_model_forward, torch_kCPU, torch_delete
+#endif
     !
     ! !ARGUMENTS
     integer, intent(in) :: ni, nj         ! global grid sizes
@@ -219,6 +222,13 @@ contains
     logical            :: lexists
     real(r8), pointer  :: data2dptr(:,:) ! temp. pointers for slicing larger arrays
     character(len=32)  :: subname = 'initialize2' ! subroutine name
+#ifdef USE_FTORCH
+    type(torch_model) :: ftorch_model
+    type(torch_tensor) :: in_tensor(1), out_tensor(1)
+    real(r8), target :: in_data(4)
+    real(r8), target :: out_data(4)
+    integer :: in_layout(1), out_layout(1)
+#endif
     !-----------------------------------------------------------------------
 
     call t_startf('clm_init2_part1')
@@ -792,6 +802,26 @@ contains
        end do
        !$OMP END PARALLEL DO
     end if
+
+#ifdef USE_FTORCH
+    if (masterproc) then
+       write(iulog,*) '========================================='
+       write(iulog,*) ' RUNNING TEMP FTORCH FUNCTIONAL TEST '
+       in_data = [1.0_r8, 2.0_r8, 3.0_r8, 4.0_r8]
+       out_data = [0.0_r8, 0.0_r8, 0.0_r8, 0.0_r8]
+       in_layout = [4]
+       out_layout = [4]
+       call torch_model_load(ftorch_model, "constant_model.pt", torch_kCPU)
+       call torch_tensor_from_array(in_tensor(1), in_data, in_layout, torch_kCPU)
+       call torch_tensor_from_array(out_tensor(1), out_data, out_layout, torch_kCPU)
+       call torch_model_forward(ftorch_model, in_tensor, out_tensor)
+       write(iulog,*) ' FTORCH INFERENCE SUCCESSFUL: output = ', out_data
+       write(iulog,*) '========================================='
+       call torch_delete(in_tensor(1))
+       call torch_delete(out_tensor(1))
+       call torch_delete(ftorch_model)
+    end if
+#endif
 
     call t_stopf('clm_init2_part3')
 
