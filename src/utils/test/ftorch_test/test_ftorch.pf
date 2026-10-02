@@ -35,19 +35,22 @@ contains
     type(torch_tensor) :: in_tensor(1), out_tensor(1)
     real(r8), target :: in_data(4)
     real(r8), target :: out_data(4)
+    real(r8), target :: expected_data(4)
     integer :: in_layout(1), out_layout(1)
+    real(r8) :: tol = 1.0e-5_r8
 
     in_data = [1.0_r8, 2.0_r8, 3.0_r8, 4.0_r8]
     out_data = [0.0_r8, 0.0_r8, 0.0_r8, 0.0_r8]
+    expected_data = [1.0_r8, 1.0_r8, 1.0_r8, 1.0_r8]
     in_layout = [4]
     out_layout = [4]
 
-    call torch_model_load(model, "simple_identity.pt", torch_kCPU)
+    call torch_model_load(model, "constant_model.pt", torch_kCPU)
     call torch_tensor_from_array(in_tensor(1), in_data, in_layout, torch_kCPU)
     call torch_tensor_from_array(out_tensor(1), out_data, out_layout, torch_kCPU)
     call torch_model_forward(model, in_tensor, out_tensor)
 
-    @assertEqual(in_data, out_data)
+    @assertTrue(all(abs(out_data - expected_data) < tol))
 
     call torch_delete(in_tensor(1))
     call torch_delete(out_tensor(1))

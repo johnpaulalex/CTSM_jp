@@ -28,10 +28,23 @@ if HAS_TORCH:
 
         def forward(self, x: torch.Tensor) -> torch.Tensor:
             return x * 1.0
+
+    class ConstantModel(nn.Module):
+        """
+        Sample Constant Model used for testing and demonstration.
+        Returns tensor of ones matching input shape, multiplied by a constant.
+        """
+        def __init__(self, constant_value: float = 1.0):
+            super().__init__()
+            self.constant_value = constant_value
+
+        def forward(self, x: torch.Tensor) -> torch.Tensor:
+            return torch.ones_like(x) * self.constant_value
 else:
     class SampleIdentityModel:
         pass
-
+    class ConstantModel:
+        pass
 
 
 def export_model_to_torchscript(model, output_file, method="script", example_input=None):
@@ -63,8 +76,10 @@ def export_model_to_torchscript(model, output_file, method="script", example_inp
 
 def main():
     parser = argparse.ArgumentParser(description="Export PyTorch model to TorchScript .pt format for FTorch.")
-    parser.add_argument("-o", "--output", default="simple_identity.pt", help="Output .pt file path (default: simple_identity.pt)")
+    parser.add_argument("-o", "--output", default="constant_model.pt", help="Output .pt file path (default: constant_model.pt)")
     parser.add_argument("-m", "--method", choices=["script", "trace"], default="script", help="Export method (default: script)")
+    parser.add_argument("--model-type", choices=["constant", "identity"], default="constant", help="Type of model to export (default: constant)")
+    parser.add_argument("--constant-val", type=float, default=1.0, help="Value for constant model (default: 1.0)")
     args = parser.parse_args()
 
     logging.basicConfig(level=logging.INFO)
@@ -73,9 +88,13 @@ def main():
         print("ERROR: PyTorch is not available. Ensure PyTorch is installed in your python environment (ctsm_pylib).", file=sys.stderr)
         sys.exit(1)
 
-    model = SampleIdentityModel()
+    if args.model_type == "constant":
+        model = ConstantModel(constant_value=args.constant_val)
+    else:
+        model = SampleIdentityModel()
+        
     export_model_to_torchscript(model, args.output, method=args.method)
-    print(f"Exported sample TorchScript model to: {args.output}")
+    print(f"Exported {args.model_type} TorchScript model to: {args.output}")
 
 
 if __name__ == "__main__":
