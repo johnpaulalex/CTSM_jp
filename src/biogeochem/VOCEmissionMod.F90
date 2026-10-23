@@ -275,106 +275,89 @@ contains
             ptr_patch=this%vocflx_tot_patch, set_lake=0._r8, set_urb=0._r8, default='inactive')
 
        this%gamma_out_patch(begp:endp)   = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='GAMMA', units='non',  &
-!           avgflag='A', long_name='total gamma for VOC calc', &
-!           ptr_patch=this%gamma_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='GAMMA', units='non',  &
+            avgflag='A', long_name='total gamma for VOC calc', &
+            ptr_patch=this%gamma_out_patch, set_lake=0._r8, default='inactive')
 
        this%gammaL_out_patch(begp:endp)  = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='GAMMAL', units='non',  &
-!           avgflag='A', long_name='gamma L for VOC calc', &
-!           ptr_patch=this%gammaL_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='GAMMAL', units='non',  &
+            avgflag='A', long_name='gamma L for VOC calc', &
+            ptr_patch=this%gammaL_out_patch, set_lake=0._r8, default='inactive')
 
        this%gammaT_out_patch(begp:endp)  = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='GAMMAT', units='non',  &
-!           avgflag='A', long_name='gamma T for VOC calc', &
-!           ptr_patch=this%gammaT_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='GAMMAT', units='non',  &
+            avgflag='A', long_name='gamma T for VOC calc', &
+            ptr_patch=this%gammaT_out_patch, set_lake=0._r8, default='inactive')
 
        this%gammaP_out_patch(begp:endp)  = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='GAMMAP', units='non',  &
-!           avgflag='A', long_name='gamma P for VOC calc', &
-!           ptr_patch=this%gammaP_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='GAMMAP', units='non',  &
+            avgflag='A', long_name='gamma P for VOC calc', &
+            ptr_patch=this%gammaP_out_patch, set_lake=0._r8, default='inactive')
 
        this%gammaA_out_patch(begp:endp)  = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='GAMMAA', units='non',  &
-!           avgflag='A', long_name='gamma A for VOC calc', &
-!           ptr_patch=this%gammaA_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='GAMMAA', units='non',  &
+            avgflag='A', long_name='gamma A for VOC calc', &
+            ptr_patch=this%gammaA_out_patch, set_lake=0._r8, default='inactive')
 
        this%gammaS_out_patch(begp:endp)  = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='GAMMAS', units='non',  &
-!           avgflag='A', long_name='gamma S for VOC calc', &
-!           ptr_patch=this%gammaS_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='GAMMAS', units='non',  &
+            avgflag='A', long_name='gamma S for VOC calc', &
+            ptr_patch=this%gammaS_out_patch, set_lake=0._r8, default='inactive')
 
        this%gammaC_out_patch(begp:endp)  = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='GAMMAC', units='non',  &
-!           avgflag='A', long_name='gamma C for VOC calc', &
-!           ptr_patch=this%gammaC_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='GAMMAC', units='non',  &
+            avgflag='A', long_name='gamma C for VOC calc', &
+            ptr_patch=this%gammaC_out_patch, set_lake=0._r8, default='inactive')
 
        this%EOPT_out_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='EOPT', units='non',  &
-!           avgflag='A', long_name='Eopt coefficient for VOC calc', &
-!           ptr_patch=this%Eopt_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='EOPT', units='non',  &
+            avgflag='A', long_name='Eopt coefficient for VOC calc', &
+            ptr_patch=this%Eopt_out_patch, set_lake=0._r8, default='inactive')
 
        this%topt_out_patch(begp:endp)    = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='TOPT', units='non',  &
-!           avgflag='A', long_name='topt coefficient for VOC calc', &
-!           ptr_patch=this%topt_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='TOPT', units='non',  &
+            avgflag='A', long_name='topt coefficient for VOC calc', &
+            ptr_patch=this%topt_out_patch, set_lake=0._r8, default='inactive')
 
        this%alpha_out_patch(begp:endp)    = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='ALPHA', units='non',  &
-!           avgflag='A', long_name='alpha coefficient for VOC calc', &
-!           ptr_patch=this%alpha_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='ALPHA', units='non',  &
+            avgflag='A', long_name='alpha coefficient for VOC calc', &
+            ptr_patch=this%alpha_out_patch, set_lake=0._r8, default='inactive')
 
        this%cp_out_patch(begp:endp)      = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='currentPatch', units='non',  &
-!           avgflag='A', long_name='currentPatch coefficient for VOC calc', &
-!           ptr_patch=this%cp_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='currentPatch', units='non',  &
+            avgflag='A', long_name='currentPatch coefficient for VOC calc', &
+            ptr_patch=this%cp_out_patch, set_lake=0._r8, default='inactive')
 
        this%paru_out_patch(begp:endp)    = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='PAR_sun', units='umol/m2/s', &
-!           avgflag='A', long_name='sunlit PAR', &
-!           ptr_patch=this%paru_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='PAR_sun', units='umol/m2/s', &
+            avgflag='A', long_name='sunlit PAR', &
+            ptr_patch=this%paru_out_patch, set_lake=0._r8, default='inactive')
 
        this%par24u_out_patch(begp:endp)  = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='PAR24_sun', units='umol/m2/s', &
-!           avgflag='A', long_name='sunlit PAR (24 hrs)', &
-!           ptr_patch=this%par24u_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='PAR24_sun', units='umol/m2/s', &
+            avgflag='A', long_name='sunlit PAR (24 hrs)', &
+            ptr_patch=this%par24u_out_patch, set_lake=0._r8, default='inactive')
 
        this%par240u_out_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='PAR240_sun', units='umol/m2/s', &
-!           avgflag='A', long_name='sunlit PAR (240 hrs)', &
-!           ptr_patch=this%par240u_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='PAR240_sun', units='umol/m2/s', &
+            avgflag='A', long_name='sunlit PAR (240 hrs)', &
+            ptr_patch=this%par240u_out_patch, set_lake=0._r8, default='inactive')
 
        this%para_out_patch(begp:endp)    = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='PAR_shade', units='umol/m2/s', &
-!           avgflag='A', long_name='shade PAR', &
-!           ptr_patch=this%para_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='PAR_shade', units='umol/m2/s', &
+            avgflag='A', long_name='shade PAR', &
+            ptr_patch=this%para_out_patch, set_lake=0._r8, default='inactive')
 
        this%par24a_out_patch(begp:endp)  = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='PAR24_shade', units='umol/m2/s', &
-!           avgflag='A', long_name='shade PAR (24 hrs)', &
-!           ptr_patch=this%par24a_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='PAR24_shade', units='umol/m2/s', &
+            avgflag='A', long_name='shade PAR (24 hrs)', &
+            ptr_patch=this%par24a_out_patch, set_lake=0._r8, default='inactive')
 
        this%par240a_out_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='PAR240_shade', units='umol/m2/s', &
-!           avgflag='A', long_name='shade PAR (240 hrs)', &
-!           ptr_patch=this%par240a_out_patch, set_lake=0._r8, default='inactive')
+       call hist_addfld1d (fname='PAR240_shade', units='umol/m2/s', &
+            avgflag='A', long_name='shade PAR (240 hrs)', &
+            ptr_patch=this%par240a_out_patch, set_lake=0._r8, default='inactive')
 
     end if
 
@@ -605,10 +588,6 @@ contains
     vocflx(bounds%begp:bounds%endp,:)   = 0._r8
     vocflx_tot(bounds%begp:bounds%endp) = 0._r8
 
-    call InitVOCDiagnostics(bounds, gamma_out, gammaL_out, gammaT_out, gammaP_out, &
-         gammaA_out, gammaS_out, gammaC_out, Eopt_out, topt_out, alpha_out, cp_out, &
-         paru_out, par24u_out, par240u_out, para_out, par24a_out, par240a_out)
-
     do imeg=1,shr_megan_megcomps_n
       meg_out(imeg)%flux_out(bounds%begp:bounds%endp) = 0._r8
     enddo
@@ -727,6 +706,31 @@ contains
                    Eopt_out(p)=Eopt
 
                 end if
+             else if (imeg==1) then
+                ! gamma out of range: the diagnostics for this patch are undefined this
+                ! step. Set them to spval rather than leaving the previous step's values,
+                ! which are not restart variables and would break exact restart (#3661).
+                gamma_out(p)=spval
+                gammaP_out(p)=spval
+                gammaT_out(p)=spval
+                gammaA_out(p)=spval
+                gammaS_out(p)=spval
+                gammaL_out(p)=spval
+                gammaC_out(p)=spval
+
+                paru_out(p)=spval
+                par24u_out(p)=spval
+                par240u_out(p)=spval
+
+                para_out(p)=spval
+                par24a_out(p)=spval
+                par240a_out(p)=spval
+
+                alpha_out(p)=spval
+                cp_out(p)=spval
+
+                topt_out(p)=spval
+                Eopt_out(p)=spval
              endif
 
              if (debug .and. gamma > 0.0_r8) then
@@ -1176,49 +1180,5 @@ contains
 
   end function get_gamma_C
 
-  !-----------------------------------------------------------------------
-  subroutine InitVOCDiagnostics(bounds, gamma_out, gammaL_out, gammaT_out, gammaP_out, &
-       gammaA_out, gammaS_out, gammaC_out, Eopt_out, topt_out, alpha_out, cp_out, &
-       paru_out, par24u_out, par240u_out, para_out, par24a_out, par240a_out)
-    ! Initialize VOC emission diagnostic outputs to spval
-    use clm_varcon, only : spval
-    type(bounds_type), intent(in) :: bounds
-    real(r8), intent(inout) :: gamma_out(bounds%begp:)
-    real(r8), intent(inout) :: gammaL_out(bounds%begp:)
-    real(r8), intent(inout) :: gammaT_out(bounds%begp:)
-    real(r8), intent(inout) :: gammaP_out(bounds%begp:)
-    real(r8), intent(inout) :: gammaA_out(bounds%begp:)
-    real(r8), intent(inout) :: gammaS_out(bounds%begp:)
-    real(r8), intent(inout) :: gammaC_out(bounds%begp:)
-    real(r8), intent(inout) :: Eopt_out(bounds%begp:)
-    real(r8), intent(inout) :: topt_out(bounds%begp:)
-    real(r8), intent(inout) :: alpha_out(bounds%begp:)
-    real(r8), intent(inout) :: cp_out(bounds%begp:)
-    real(r8), intent(inout) :: paru_out(bounds%begp:)
-    real(r8), intent(inout) :: par24u_out(bounds%begp:)
-    real(r8), intent(inout) :: par240u_out(bounds%begp:)
-    real(r8), intent(inout) :: para_out(bounds%begp:)
-    real(r8), intent(inout) :: par24a_out(bounds%begp:)
-    real(r8), intent(inout) :: par240a_out(bounds%begp:)
-
-    gamma_out(bounds%begp:bounds%endp)   = spval
-    gammaL_out(bounds%begp:bounds%endp)  = spval
-    gammaT_out(bounds%begp:bounds%endp)  = spval
-    gammaP_out(bounds%begp:bounds%endp)  = spval
-    gammaA_out(bounds%begp:bounds%endp)  = spval
-    gammaS_out(bounds%begp:bounds%endp)  = spval
-    gammaC_out(bounds%begp:bounds%endp)  = spval
-    Eopt_out(bounds%begp:bounds%endp)    = spval
-    topt_out(bounds%begp:bounds%endp)    = spval
-    alpha_out(bounds%begp:bounds%endp)   = spval
-    cp_out(bounds%begp:bounds%endp)      = spval
-    paru_out(bounds%begp:bounds%endp)    = spval
-    par24u_out(bounds%begp:bounds%endp)  = spval
-    par240u_out(bounds%begp:bounds%endp) = spval
-    para_out(bounds%begp:bounds%endp)    = spval
-    par24a_out(bounds%begp:bounds%endp)  = spval
-    par240a_out(bounds%begp:bounds%endp) = spval
-
-  end subroutine InitVOCDiagnostics
 
 end module VOCEmissionMod

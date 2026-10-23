@@ -269,50 +269,41 @@ contains
             ptr_patch=this%fv_patch, default='inactive')
 
        this%rah1_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='RAH1', units='s/m', &
-!           avgflag='A', long_name='aerodynamical resistance ', &
-!           ptr_patch=this%rah1_patch, default='inactive')
+       call hist_addfld1d (fname='RAH1', units='s/m', &
+            avgflag='A', long_name='aerodynamical resistance ', &
+            ptr_patch=this%rah1_patch, default='inactive')
        this%rah2_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='RAH2', units='s/m', &
-!           avgflag='A', long_name='aerodynamical resistance ', &
-!           ptr_patch=this%rah2_patch, default='inactive')
+       call hist_addfld1d (fname='RAH2', units='s/m', &
+            avgflag='A', long_name='aerodynamical resistance ', &
+            ptr_patch=this%rah2_patch, default='inactive')
        this%raw1_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='RAW1', units='s/m', &
-!           avgflag='A', long_name='aerodynamical resistance ', &
-!           ptr_patch=this%raw1_patch, default='inactive')
+       call hist_addfld1d (fname='RAW1', units='s/m', &
+            avgflag='A', long_name='aerodynamical resistance ', &
+            ptr_patch=this%raw1_patch, default='inactive')
        this%raw2_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='RAW2', units='s/m', &
-!           avgflag='A', long_name='aerodynamical resistance ', &
-!           ptr_patch=this%raw2_patch, default='inactive')
+       call hist_addfld1d (fname='RAW2', units='s/m', &
+            avgflag='A', long_name='aerodynamical resistance ', &
+            ptr_patch=this%raw2_patch, default='inactive')
        this%ustar_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='USTAR', units='m/s', &
-!           avgflag='A', long_name='friction velocity ', &
-!           ptr_patch=this%ustar_patch, default='inactive')
+       call hist_addfld1d (fname='USTAR', units='m/s', &
+            avgflag='A', long_name='friction velocity ', &
+            ptr_patch=this%ustar_patch, default='inactive')
        this%um_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='UM', units='m/s', &
-!           avgflag='A', long_name='wind speed plus stability effect', &
-!           ptr_patch=this%um_patch, default='inactive')
+       call hist_addfld1d (fname='UM', units='m/s', &
+            avgflag='A', long_name='wind speed plus stability effect', &
+            ptr_patch=this%um_patch, default='inactive')
        this%uaf_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='UAF', units='m/s', &
-!           avgflag='A', long_name='canopy air speed ', &
-!           ptr_patch=this%uaf_patch, default='inactive')
+       call hist_addfld1d (fname='UAF', units='m/s', &
+            avgflag='A', long_name='canopy air speed ', &
+            ptr_patch=this%uaf_patch, default='inactive')
        this%taf_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='TAF', units='K', &
-!           avgflag='A', long_name='canopy air temperature', &
-!           ptr_patch=this%taf_patch, default='inactive')
+       call hist_addfld1d (fname='TAF', units='K', &
+            avgflag='A', long_name='canopy air temperature', &
+            ptr_patch=this%taf_patch, default='inactive')
        this%qaf_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='QAF', units='kg/kg', &
-!           avgflag='A', long_name='canopy air humidity', &
-!           ptr_patch=this%qaf_patch, default='inactive')
+       call hist_addfld1d (fname='QAF', units='kg/kg', &
+            avgflag='A', long_name='canopy air humidity', &
+            ptr_patch=this%qaf_patch, default='inactive')
        this%obu_patch(begp:endp) = spval
        call hist_addfld1d (fname='OBU', units='m', &
             avgflag='A', long_name='Obukhov length scale', &
@@ -322,10 +313,9 @@ contains
             avgflag='A', long_name='dimensionless stability parameter', &
             ptr_patch=this%zeta_patch, default='inactive')
        this%vpd_patch(begp:endp) = spval
-!      Commented out failing fields (see https://github.com/ESCOMP/CTSM/issues/3661) to allow all_outputs test to catch new problems as they arise
-!      call hist_addfld1d (fname='VPD', units='kPa', &
-!           avgflag='A', long_name='vapor pressure deficit', &
-!           ptr_patch=this%vpd_patch, default='inactive')
+       call hist_addfld1d (fname='VPD', units='kPa', &
+            avgflag='A', long_name='vapor pressure deficit', &
+            ptr_patch=this%vpd_patch, default='inactive')
        this%num_iter_patch(begp:endp) = spval
        call hist_addfld1d (fname='num_iter', units='unitless', &
             avgflag='A', long_name='number of iterations', &
@@ -418,16 +408,28 @@ contains
   end subroutine InitCold
 
   !------------------------------------------------------------------------------
-  subroutine SetValues(this, bounds, setval)
-    ! Initialize diagnostic arrays to setval
-    ! to avoid carrying over stale values on patches that don't compute them
+  subroutine SetValues(this, bounds, setval, p)
+    ! Set to setval the diagnostic arrays that are written only by CanopyFluxes
+    ! (i.e., only for patches in filter_exposedvegp), either over all of bounds or
+    ! for a single patch p. Used at initialization and when a patch leaves that
+    ! filter, so that stale values from the last time it was computed do not persist.
+    !
+    ! Deliberately NOT included: obu (restart variable, read by the dust model for
+    ! bare-ground patches, and BareGroundFluxes keeps its own local copy), and
+    ! zeta, u10, u10_clm, ram1, rb1, fv, which FrictionVelocity or BareGroundFluxes
+    ! recompute every step for all non-lake, non-urban patches.
     
     class(frictionvel_type), intent(inout) :: this
     type(bounds_type), intent(in) :: bounds
     real(r8), intent(in)          :: setval
+    integer, intent(in), optional :: p      ! if present, set values for this patch only
     integer :: begp, endp
     
-    begp = bounds%begp; endp = bounds%endp
+    if (present(p)) then
+       begp = p; endp = p
+    else
+       begp = bounds%begp; endp = bounds%endp
+    end if
     
     this%rah1_patch(begp:endp) = setval
     this%rah2_patch(begp:endp) = setval
@@ -438,13 +440,7 @@ contains
     this%uaf_patch(begp:endp) = setval
     this%taf_patch(begp:endp) = setval
     this%qaf_patch(begp:endp) = setval
-    this%obu_patch(begp:endp) = setval
-    this%zeta_patch(begp:endp) = setval
     this%vpd_patch(begp:endp) = setval
-    this%rb1_patch(begp:endp) = setval
-    this%u10_patch(begp:endp) = setval
-    this%u10_clm_patch(begp:endp) = setval
-    this%ram1_patch(begp:endp) = setval
     
   end subroutine SetValues
 
